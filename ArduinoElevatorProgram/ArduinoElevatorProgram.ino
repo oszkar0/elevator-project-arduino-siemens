@@ -52,9 +52,59 @@ void setup(){
   pinMode(OutputQ2Pin, OUTPUT);
 }
 
-void 
+//function to calculate the next state;
+void calculateState(){
+  boolean X1copy = 0;
+  boolean X2copy = 0;
+  boolean X3copy = 0;
+  boolean X4copy = 0;
+
+  //calculate next state based on previous state and input
+  X1copy = (!X1 && !X2 && X3 && X4 && button0) 
+            || (!X1 && !X2 && X3 && X4 && button1)
+            || (X1 && !X2 && !X3 && !X4 && !sensor1)
+            || (X1 && !X2 && !X3 && X4  && !sensor0);
+
+  X2copy = (!X1 && !X2 && !X3 && X4 && button1)
+           || (!X1 && !X2 && !X3 && X4 && button3)
+           || (!X1 && !X2 && X3 && !X4 && button0)
+           || (!X1 && !X2 && X3 && !X4 && button3)
+           || (!X1 && X2 && !X3 && !X4 && !sensor1)
+           || (!X1 && X2 && !X3 && X3 && !sensor3)
+           || (!X1 && X2 && X3 && !X4 && !sensor3)
+           || (!X1 && X2 && X3 && X4 && sensor0);
+
+  X3copy = (!X1 && !X2 && !X3 && !X4 && sensor3)
+           || (!X1 && !X2 && X3 && !X4 && button0)
+           || (!X1 && !X2 && X3 && !X4 && button3)
+           || (!X1 && X2 && !X3 && !X4 && sensor1)
+           || (!X1 && X2 && !X3 && X4 &&  sensor3)
+           || (!X1 && X2 && X3 && !X4)
+           || (!X1 && X2 && X3 && X4 && !sensor0)
+           || (X1 && !X2 && !X3 && !X4 && sensor1)
+           || (!X1 && !X2 && X3 && !X4 && !button0 && !button3)
+           || (!X1 && !X2 && X3 && X4 && !button0 && !button1);
+
+  X4copy = (!X1 && !X2 && !X3 && !X4 && sensor3)
+           || (!X1 && !X2 && !X3 && X4 && button3)
+           || (!X1 && !X2 && X3 && !X4 && button0)
+           || (!X1 && !X2 && X3 && X4 && button0)
+           || (!X1 &* X2 && !X3 && X4)
+           || (!X1 && X2 && X3 && !X4 && sensor3)
+           || (!X1 && X2 && X3 && X4)
+           || (X1 && !X2 && !X3 && X4)
+           || (!X1 && !X2 && !X3 && X4 && !button1 && button3)
+           || (!X1 && !X2 && X3 && X4 && !button0 && !button1);
+
+  //make next state current state 
+  X1 = X1copy;
+  X2 = X2copy;
+  X3 = X3copy;
+  X4 = X4copy;
+}
 
 void loop() {
   setup();
-
+  readInput();
+  calculateState();
 }
