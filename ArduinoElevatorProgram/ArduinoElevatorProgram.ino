@@ -89,7 +89,7 @@ void calculateState(){
            || (!X1 && !X2 && !X3 && X4 && button3)
            || (!X1 && !X2 && X3 && !X4 && button0)
            || (!X1 && !X2 && X3 && X4 && button0)
-           || (!X1 &* X2 && !X3 && X4)
+           || (!X1 && X2 && !X3 && X4)
            || (!X1 && X2 && X3 && !X4 && sensor3)
            || (!X1 && X2 && X3 && X4)
            || (X1 && !X2 && !X3 && X4)
@@ -103,11 +103,17 @@ void calculateState(){
   X4 = X4copy;
 }
 
+//function to calculate output for the elevator motor
 void calculateOutput(){
+  Q1 = (!X1 && X2 && X3 && X4)
+       || (X1 && !X2 && !X3);
   
+  Q2 = (!X1 && !X2 && !X3 && X4)
+       || (!X1 && !X2 && X3);
 }
 
 void loop() {
   readInput();
   calculateState();
+  calculateOutput();
 }
