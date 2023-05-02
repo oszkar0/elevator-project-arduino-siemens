@@ -103,8 +103,11 @@ void calculateState(){
   X4 = X4copy;
 }
 
+void calculateOutput(){
+  
+}
+
 void loop() {
-  setup();
   readInput();
   calculateState();
 }
