@@ -70,9 +70,9 @@ void calculateState(){
            || (!X1 && !X2 && X3 && !X4 && button0)
            || (!X1 && !X2 && X3 && !X4 && button3)
            || (!X1 && X2 && !X3 && !X4 && !sensor1)
-           || (!X1 && X2 && !X3 && X3 && !sensor3)
+           || (!X1 && X2 && !X3 && X4 && !sensor3)
            || (!X1 && X2 && X3 && !X4 && !sensor3)
-           || (!X1 && X2 && X3 && X4 && sensor0);
+           || (!X1 && X2 && X3 && X4 && !sensor0);
 
   X3copy = (!X1 && !X2 && !X3 && !X4 && sensor3)
            || (!X1 && !X2 && X3 && !X4 && button0)
@@ -93,7 +93,7 @@ void calculateState(){
            || (!X1 && X2 && X3 && !X4 && sensor3)
            || (!X1 && X2 && X3 && X4)
            || (X1 && !X2 && !X3 && X4)
-           || (!X1 && !X2 && !X3 && X4 && !button1 && button3)
+           || (!X1 && !X2 && !X3 && X4 && !button1 && !button3)
            || (!X1 && !X2 && X3 && X4 && !button0 && !button1);
 
   //make next state current state 
@@ -112,8 +112,14 @@ void calculateOutput(){
        || (!X1 && !X2 && X3);
 }
 
+void writeOutput(){
+  digitalWrite(OutputQ1Pin, Q1);
+  digitalWrite(OutputQ2Pin, Q2);
+}
+
 void loop() {
   readInput();
   calculateState();
   calculateOutput();
+  writeOutput();
 }
